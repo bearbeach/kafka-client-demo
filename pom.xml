@@ -3,24 +3,23 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
-    <groupId>com.baofoo.kafka</groupId>
-    <artifactId>kafka-service</artifactId>
+    <groupId>com.system.kafka</groupId>
+    <artifactId>kafka</artifactId>
     <version>1.0.1</version>
 
     <properties>
-        <spring.version>3.2.4.RELEASE</spring.version>
-        <baofoo-logback.version>1.0.0</baofoo-logback.version>
-        <lombok.version>0.11.4</lombok.version>
+        <spring.version>4.2.4.RELEASE</spring.version>
+        <logback.version>1.0.0</logback.version>
+        <lombok.version>1.16.6</lombok.version>
         <junit.version>4.11</junit.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
 
     <dependencies>
         <dependency>
-            <groupId>com.baofoo</groupId>
-            <artifactId>baofoo-logback</artifactId>
-            <version>${baofoo-logback.version}</version>
+            <groupId>com.system.logback</groupId>
+            <artifactId>logback</artifactId>
+            <version>${logback.version}</version>
         </dependency>
         <dependency>
             <groupId>org.projectlombok</groupId>
@@ -111,6 +110,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
             </plugin>
         </plugins>
     </build>
