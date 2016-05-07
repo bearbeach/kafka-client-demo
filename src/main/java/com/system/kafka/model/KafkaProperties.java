@@ -34,7 +34,7 @@ public interface KafkaProperties {
     /**
      * 消息序列化类
      */
-    String serializerClass = "MessageSerializer";
+    String serializerClass = "com.system.kafka.serialize.MessageSerializer";
     /**
      * 消息发送失败重试次数
      */
