@@ -23,16 +23,4 @@
             <version>${kafka.version}</version>
         </dependency>
     </dependencies>
-
-    <!--上传配置 -->
-    <distributionManagement>
-        <repository>
-            <id>releases</id>
-            <url>http://116.236.217.148:8010/nexus/content/repositories/releases/</url>
-        </repository>
-        <snapshotRepository>
-            <id>snapshots</id>
-            <url>http://116.236.217.148:8010/nexus/content/repositories/snapshots/</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>
