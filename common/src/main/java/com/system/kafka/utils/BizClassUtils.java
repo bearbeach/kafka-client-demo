@@ -1,5 +1,6 @@
 package com.system.kafka.utils;
 
+import com.system.kafka.handle.BizHandleInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,14 +15,14 @@ import java.util.Objects;
  * <li>User: weiwei Date:16/5/11 <li>
  * </ul>
  */
-public class ClassUtils {
+public class BizClassUtils {
 
-    private static final Logger loger = LoggerFactory.getLogger(ClassUtils.class);
+    private static final Logger loger = LoggerFactory.getLogger(BizClassUtils.class);
 
     /**
      * 处理类map
      */
-    public static Map<String, Object> mapObj = new HashMap<>();
+    public static Map<String, BizHandleInterface> mapObj = new HashMap<>();
 
     /**
      * 获取相应的处理类
@@ -29,10 +30,10 @@ public class ClassUtils {
      * @param c
      * @return
      */
-    public static Object get(Class c) {
+    public static BizHandleInterface get(Class c) {
         try {
             if (null == mapObj.get(c.getName()))
-                mapObj.put(c.getName(), c.newInstance());
+                mapObj.put(c.getName(), (BizHandleInterface) c.newInstance());
             return mapObj.get(c.getName());
         } catch (InstantiationException e) {
             loger.error("Initialization handle InstantiationException,{}", e);

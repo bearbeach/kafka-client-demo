@@ -12,12 +12,14 @@ import java.util.Map;
 
 /**
  * <ul>
- * <li>消息反系列化类</li>
+ * <li>对象反系列化类</li>
  * <li>User: weiwei Date:16/5/11 <li>
  * </ul>
  */
-public class MessageDeserializer implements Deserializer {
-    private static final Logger logger = LoggerFactory.getLogger(MessageDeserializer.class);
+
+@Deprecated
+public class MessageObejctDeserializer implements Deserializer {
+    private static final Logger logger = LoggerFactory.getLogger(MessageObejctDeserializer.class);
 
     @Override
     public void configure(Map configs, boolean isKey) {

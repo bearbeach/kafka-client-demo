@@ -1,9 +1,9 @@
 package com.system.kafka.demo.producer;
 
-import com.system.kafka.factory.ProducerFactory;
 import com.system.kafka.demo.BaseSpringTest;
 import com.system.kafka.demo.SayHello;
 import com.system.kafka.demo.handler.ProducerHandler;
+import com.system.kafka.factory.ProducerFactory;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,7 +46,7 @@ public class ProducerTest extends BaseSpringTest {
 
     @Test
     public void multipleSendMessageTest() throws InterruptedException {
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < 100; i++) {
             SayHello sayHello = new SayHello("name:" + i, "say " + i);
             /**
              * 发送通道1
@@ -56,7 +56,8 @@ public class ProducerTest extends BaseSpringTest {
             /**
              * 发送通道2
              */
-            producerHandler2.sendMessage(sayHello);
+            SayHello sayHello2 = new SayHello("nick:" + i, "as say " + i);
+            producerHandler2.sendMessage(sayHello2);
         }
 
         Thread.sleep(100000);

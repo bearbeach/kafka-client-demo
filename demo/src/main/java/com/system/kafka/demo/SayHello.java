@@ -16,6 +16,12 @@ public class SayHello implements Serializable {
     private String name;
     private String say;
 
+    /**
+     * 注意,必须保留空构造
+     */
+    public SayHello() {
+    }
+
     public SayHello(String name, String say) {
         this.name = name;
         this.say = say;

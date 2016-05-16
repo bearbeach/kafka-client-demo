@@ -18,6 +18,8 @@
         <property name="batchSize" value="16384"/>
         <property name="bufferMemory" value="33554432"/>
         <property name="lingerMs" value="1"/>
+        <property name="keySerializer" value="com.system.kafka.serializer.MessageJsonSerializer"/>
+        <property name="valueSerializer" value="com.system.kafka.serializer.MessageJsonSerializer"/>
     </bean>
 
     <bean name="producerFactory" class="com.system.kafka.factory.ProducerFactory">
@@ -28,15 +30,18 @@
         <property name="producerFactory" ref="producerFactory"/>
     </bean>
 
+    <!-- 生产通道1 -->
     <bean name="producerHandler" class="com.system.kafka.demo.handler.ProducerHandler">
         <property name="productService" ref="productService"/>
         <property name="topicName" value="my-topic"/>
     </bean>
 
+    <!-- 生产通道2 -->
     <bean name="producerHandler2" class="com.system.kafka.demo.handler.ProducerHandler">
         <property name="productService" ref="productService"/>
         <property name="topicName" value="my-topic1"/>
     </bean>
+
     <!-- 初始化消费者 -->
     <bean name="consumerConfig" class="com.system.kafka.model.ConsumerConfig">
         <property name="bootstrapServers" value="10.0.21.56:9092,10.0.21.57:9092"/>
@@ -45,8 +50,6 @@
         <property name="enableAutoCommit" value="true"/>
         <property name="autoCommitIntervalMs" value="1000"/>
         <property name="sessionTimeoutMs" value="30000"/>
-        <property name="keyDeserializer" value="org.apache.kafka.common.serialization.StringDeserializer"/>
-        <property name="valueDeserializer" value="com.system.kafka.serializer.MessageDeserializer"/>
     </bean>
 
     <bean name="consumerFactory" class="com.system.kafka.factory.ConsumerFactory">
@@ -57,17 +60,19 @@
         <property name="consumerFactory" ref="consumerFactory"/>
     </bean>
 
-    <!-- 消费者实例 -->
+    <!-- 消费者实例1 -->
     <bean name="consumerHandler" class="com.system.kafka.demo.handler.ConsumerHandler" init-method="execute">
         <property name="consumerService" ref="consumerService"/>
         <property name="topicName" value="my-topic"/>
+        <property name="transObj" value="com.system.kafka.demo.SayHello"/>
         <property name="receiptObj" value="com.system.kafka.demo.ReceiptDispatch"/>
     </bean>
 
-    <!-- 消费者实例 -->
+    <!-- 消费者实例2 -->
     <bean name="consumerHandler2" class="com.system.kafka.demo.handler.ConsumerHandler" init-method="execute">
         <property name="consumerService" ref="consumerService"/>
         <property name="topicName" value="my-topic1"/>
+        <property name="transObj" value="com.system.kafka.demo.SayHello"/>
         <property name="receiptObj" value="com.system.kafka.demo.ReceiptDispatch"/>
     </bean>
 </beans>

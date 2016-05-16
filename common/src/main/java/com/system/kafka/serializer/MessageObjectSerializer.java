@@ -13,14 +13,14 @@ import java.util.Map;
 
 /**
  * <ul>
- * <li>消息序列化类</li>
+ * <li>对象序列化类</li>
  * <li>User: weiwei Date:16/5/11 <li>
  * </ul>
  */
+@Deprecated
+public class MessageObjectSerializer implements Serializer {
 
-public class MessageSerializer implements Serializer {
-
-    private static final Logger logger = LoggerFactory.getLogger(MessageSerializer.class);
+    private static final Logger logger = LoggerFactory.getLogger(MessageObjectSerializer.class);
 
     @Override
     public void configure(Map configs, boolean isKey) {

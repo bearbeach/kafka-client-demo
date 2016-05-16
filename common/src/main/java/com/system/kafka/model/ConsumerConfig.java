@@ -53,7 +53,7 @@ public class ConsumerConfig {
      * <p>
      * 解析Value序列化格式类型
      */
-    private String valueDeserializer = "com.system.kafka.serializer.MessageDeserializer";
+    private String valueDeserializer = "org.apache.kafka.common.serialization.StringDeserializer";
 
     public String getBootstrapServers() {
         return bootstrapServers;

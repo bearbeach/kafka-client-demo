@@ -33,11 +33,11 @@ public class ConsumerService {
      * @param topicName
      * @param beanName
      */
-    public void consumerMessages(final String topicName, final Class<? extends BizHandleInterface> beanName) {
+    public void consumerMessages(final String topicName, final Class<? extends BizHandleInterface> beanName, final Class transObj) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                new ConsumerForward(consumerFactory.getConsumer(topicName)).poll(topicName, beanName);
+                new ConsumerForward(consumerFactory.getConsumer(topicName)).poll(topicName, beanName, transObj);
             }
         }).start();
     }

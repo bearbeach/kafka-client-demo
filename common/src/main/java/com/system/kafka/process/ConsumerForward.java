@@ -1,8 +1,7 @@
 package com.system.kafka.process;
 
-import com.system.kafka.factory.ConsumerFactory;
-import com.system.kafka.handle.BizHandleInterface;
-import com.system.kafka.utils.ClassUtils;
+import com.alibaba.fastjson.JSON;
+import com.system.kafka.utils.BizClassUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
@@ -31,15 +30,15 @@ public class ConsumerForward {
         this.consumer = consumer;
     }
 
-    public <T> void poll(String topicName, Class c) {
+    public <T> void poll(String topicName, Class c, Class<T> clas) {
 
         // 订阅一个主题
         consumer.subscribe(Arrays.asList(topicName));
         while (true) {
-            ConsumerRecords<String, T> records = consumer.poll(100);
-            for (ConsumerRecord<String, T> record : records) {
+            ConsumerRecords<String, String> records = consumer.poll(100);
+            for (ConsumerRecord<String, String> record : records) {
                 try {
-                    ((BizHandleInterface) ClassUtils.get(c)).doBiz(record.value());
+                    BizClassUtils.get(c).doBiz(JSON.parseObject(record.value(), clas));
                 } catch (Exception e) {
                     logger.error("a message errors:{}", e);
                 }

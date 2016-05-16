@@ -31,6 +31,11 @@ public class ConsumerHandler {
      */
     private Class receiptObj;
 
+    /**
+     * 传输的对象
+     */
+    private Class transObj;
+
     public void setConsumerService(ConsumerService consumerService) {
         this.consumerService = consumerService;
     }
@@ -43,12 +48,16 @@ public class ConsumerHandler {
         this.topicName = topicName;
     }
 
+    public void setTransObj(Class transObj) {
+        this.transObj = transObj;
+    }
+
     /**
      * 消费者启动执行
      * 注意:不同的消费者只允许调用1次.
      */
     public void execute() {
         logger.info("starting a consumer,topic:[{}]", topicName);
-        consumerService.consumerMessages(topicName, receiptObj);
+        consumerService.consumerMessages(topicName, receiptObj, transObj);
     }
 }

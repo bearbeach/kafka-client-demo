@@ -1,8 +1,12 @@
 # Kafka Client Introduction
 ```
-A Kafka client that publishes records to the Kafka cluster.
+kafka版本:0.9.0.0
 
-The producer is thread safe and sharing a single producer instance across threads will generally be faster than having multiple instances.
+生产者
+kafka客户端发布消息到kafka集群。
+这个生产者是线程安全的，在线程之间共享单个生产者实例通常比多个实例快。
 
-Here is a simple example of using the producer to send records with strings containing sequential numbers as the key/value pairs.
+消费者
+它会透明地处理kafka集群中的服务器的故障，它获取动态获取集群中的数据的分区。
+此客户端还与服务器交互以允许消费者组使用的消费集群进行负载平衡
 ```
