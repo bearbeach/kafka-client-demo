@@ -7,7 +7,7 @@
     <version>2.0.0-SNAPSHOT</version>
 
     <modules>
-        <module>common</module>
+        <module>kafka-clients</module>
         <module>demo</module>
     </modules>
     <name>kafka-parent</name>
