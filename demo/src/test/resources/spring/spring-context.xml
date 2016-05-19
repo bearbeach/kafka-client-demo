@@ -64,8 +64,9 @@
     <bean name="consumerHandler" class="com.system.kafka.clients.demo.handler.ConsumerHandler" init-method="execute">
         <property name="consumerService" ref="consumerServiceImpl"/>
         <property name="topicName" value="my-topic"/>
+        <!-- 消息传输对象 -->
         <property name="transObj" value="com.system.kafka.clients.demo.SayHello"/>
-        <!-- 注入处理类对象 (需要你来进行扫描) -->
+        <!-- 注入消息处理类对象 (需要你来进行扫描) -->
         <property name="receiptObj" ref="receiptDispatch"/>
     </bean>
 
