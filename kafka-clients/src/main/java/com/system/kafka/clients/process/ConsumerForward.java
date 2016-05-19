@@ -30,7 +30,7 @@ public class ConsumerForward {
         this.consumer = consumer;
     }
 
-    public <T> void poll(String topicName, Class c, Class<T> clas) {
+    public <T> void poll(String topicName, Object obj, Class<T> clas) {
 
         // 订阅一个主题
         consumer.subscribe(Arrays.asList(topicName));
@@ -38,7 +38,7 @@ public class ConsumerForward {
             ConsumerRecords<String, String> records = consumer.poll(100);
             for (ConsumerRecord<String, String> record : records) {
                 try {
-                    BizClassUtils.get(c).doBiz(JSON.parseObject(record.value(), clas));
+                    BizClassUtils.get(obj).doBiz(JSON.parseObject(record.value(), clas));
                 } catch (Exception e) {
                     logger.error("a message errors:{}", e);
                 }

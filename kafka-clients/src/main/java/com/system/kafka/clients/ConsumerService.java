@@ -1,7 +1,6 @@
 package com.system.kafka.clients;
 
 import com.system.kafka.clients.factory.ConsumerFactory;
-import com.system.kafka.clients.handle.BizHandleInterface;
 import com.system.kafka.clients.process.ConsumerForward;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,16 +27,16 @@ public class ConsumerService {
 
     /**
      * 根据[topicName]获取消费者通道,"长等待"主动去broker拉取消息.
-     * 获取到的消息,丢给[beanName]处理人进行处理.
+     * 获取到的消息,丢给[obj]处理人进行处理.
      *
      * @param topicName
-     * @param beanName
+     * @param obj
      */
-    public void consumerMessages(final String topicName, final Class<? extends BizHandleInterface> beanName, final Class transObj) {
+    public void consumerMessages(final String topicName, final Object obj, final Class transObj) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                new ConsumerForward(consumerFactory.getConsumer(topicName)).poll(topicName, beanName, transObj);
+                new ConsumerForward(consumerFactory.getConsumer(topicName)).poll(topicName, obj, transObj);
             }
         }).start();
     }

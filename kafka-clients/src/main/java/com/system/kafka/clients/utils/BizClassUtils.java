@@ -1,8 +1,6 @@
 package com.system.kafka.clients.utils;
 
 import com.system.kafka.clients.handle.BizHandleInterface;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,29 +14,28 @@ import java.util.Map;
  */
 public class BizClassUtils {
 
-    private static final Logger loger = LoggerFactory.getLogger(BizClassUtils.class);
-
     /**
      * 处理类map
      */
-    public static Map<String, BizHandleInterface> mapObj = new HashMap<>();
+    public volatile static Map<String, BizHandleInterface> mapObj = new HashMap<>();
 
     /**
      * 获取相应的处理类
      *
-     * @param c
+     * @param obj
      * @return
      */
-    public static BizHandleInterface get(Class c) {
-        try {
-            if (null == mapObj.get(c.getName()))
-                mapObj.put(c.getName(), (BizHandleInterface) c.newInstance());
-            return mapObj.get(c.getName());
-        } catch (InstantiationException e) {
-            loger.error("Initialization handle InstantiationException,{}", e);
-        } catch (IllegalAccessException e) {
-            loger.error("Initialization handle IllegalAccessException,{}", e);
+    public static BizHandleInterface get(Object obj) {
+        if (null == mapObj.get(obj.getClass().getName())) {
+            synchronized (BizClassUtils.class) {
+                if (null == mapObj.get(obj.getClass().getName())) {
+                    if (obj instanceof BizHandleInterface)
+                        mapObj.put(obj.getClass().getName(), (BizHandleInterface) obj);
+                    else
+                        throw new ClassCastException("illegal changed Exception");
+                }
+            }
         }
-        return null;
+        return mapObj.get(obj.getClass().getName());
     }
 }

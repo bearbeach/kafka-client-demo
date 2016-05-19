@@ -30,7 +30,8 @@ public class ProducerTest extends BaseSpringTest {
     ProducerHandler producerHandler2;
 
     /**
-     * 单发送消息用例
+     * 发送消息用例
+     * 在spring-context.xml默认启动消费者
      *
      * @throws InterruptedException
      */
@@ -39,30 +40,6 @@ public class ProducerTest extends BaseSpringTest {
         for (int i = 0; i < 10; i++) {
             SayHello sayHello = new SayHello("name:" + i, "say " + i);
             producerHandler.sendMessage(sayHello);
-        }
-
-        Thread.sleep(100000);
-    }
-
-    /**
-     * 多通道发送消息用例
-     *
-     * @throws InterruptedException
-     */
-    @Test
-    public void multipleSendMessageTest() throws InterruptedException {
-        for (int i = 0; i < 100; i++) {
-            SayHello sayHello = new SayHello("name:" + i, "say " + i);
-            /**
-             * 发送通道1
-             */
-            producerHandler.sendMessage(sayHello);
-
-            /**
-             * 发送通道2
-             */
-            SayHello sayHello2 = new SayHello("nick:" + i, "as say " + i);
-            producerHandler2.sendMessage(sayHello2);
         }
 
         Thread.sleep(100000);

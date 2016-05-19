@@ -12,6 +12,7 @@
     <!-- 初始化生产者 -->
     <bean name="productConfig" class="com.system.kafka.clients.model.ProductConfig">
         <property name="bootstrapServers" value="10.0.21.56:9092,10.0.21.57:9092"/>
+        <!--<property name="bootstrapServers" value="10.211.55.5:9092"/>-->
         <property name="acks" value="all"/>
         <property name="retries" value="0"/>
         <property name="batchSize" value="16384"/>
@@ -53,23 +54,19 @@
         <constructor-arg ref="consumerConfig"/>
     </bean>
 
-    <bean name="consumerService" class="com.system.kafka.clients.ConsumerService">
+    <bean name="consumerServiceImpl" class="com.system.kafka.clients.ConsumerService">
         <property name="consumerFactory" ref="consumerFactory"/>
     </bean>
 
-    <!-- 消费者实例1 -->
+    <!-- 通过注解的形式,提供的消费者实例 -->
+    <context:component-scan base-package="com.system.kafka.clients.demo"/>
+
     <bean name="consumerHandler" class="com.system.kafka.clients.demo.handler.ConsumerHandler" init-method="execute">
-        <property name="consumerService" ref="consumerService"/>
+        <property name="consumerService" ref="consumerServiceImpl"/>
         <property name="topicName" value="my-topic"/>
         <property name="transObj" value="com.system.kafka.clients.demo.SayHello"/>
-        <property name="receiptObj" value="com.system.kafka.clients.demo.ReceiptDispatch"/>
+        <!-- 注入处理类对象 (需要你来进行扫描) -->
+        <property name="receiptObj" ref="receiptDispatch"/>
     </bean>
 
-    <!-- 消费者实例2 -->
-    <bean name="consumerHandler2" class="com.system.kafka.clients.demo.handler.ConsumerHandler" init-method="execute">
-        <property name="consumerService" ref="consumerService"/>
-        <property name="topicName" value="my-topic1"/>
-        <property name="transObj" value="com.system.kafka.clients.demo.SayHello"/>
-        <property name="receiptObj" value="com.system.kafka.clients.demo.ReceiptDispatch"/>
-    </bean>
 </beans>

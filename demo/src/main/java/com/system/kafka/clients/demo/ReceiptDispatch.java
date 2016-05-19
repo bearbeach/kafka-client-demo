@@ -3,6 +3,7 @@ package com.system.kafka.clients.demo;
 import com.system.kafka.clients.handle.BizHandleInterface;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
 /**
  * <ul>
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
  * <li>User: duan Date:16/5/12 <li>
  * </ul>
  */
+@Service
 public class ReceiptDispatch implements BizHandleInterface<SayHello> {
 
     private final static Logger logger = LoggerFactory.getLogger(ReceiptDispatch.class);

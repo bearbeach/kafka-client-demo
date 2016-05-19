@@ -29,7 +29,7 @@ public class ConsumerHandler {
     /**
      * 接收到消息后,发送给"谁"进行处理
      */
-    private Class receiptObj;
+    private Object receiptObj;
 
     /**
      * 传输的对象
@@ -40,12 +40,12 @@ public class ConsumerHandler {
         this.consumerService = consumerService;
     }
 
-    public void setReceiptObj(Class receiptObj) {
-        this.receiptObj = receiptObj;
-    }
-
     public void setTopicName(String topicName) {
         this.topicName = topicName;
+    }
+
+    public void setReceiptObj(Object receiptObj) {
+        this.receiptObj = receiptObj;
     }
 
     public void setTransObj(Class transObj) {

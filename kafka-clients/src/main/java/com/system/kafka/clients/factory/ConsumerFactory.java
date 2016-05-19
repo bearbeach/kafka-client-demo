@@ -19,7 +19,6 @@ public class ConsumerFactory {
 
     private final static Logger logger = LoggerFactory.getLogger(ConsumerFactory.class);
 
-
     /**
      * 消费者通道队列
      */
