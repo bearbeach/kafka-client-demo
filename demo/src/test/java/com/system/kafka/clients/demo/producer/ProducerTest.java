@@ -2,7 +2,7 @@ package com.system.kafka.clients.demo.producer;
 
 import com.system.kafka.clients.demo.BaseSpringTest;
 import com.system.kafka.clients.demo.SayHello;
-import com.system.kafka.clients.demo.handler.ProducerHandler;
+import com.system.kafka.clients.handle.ProducerHandler;
 import com.system.kafka.clients.factory.ProducerFactory;
 import org.junit.Test;
 import org.slf4j.Logger;

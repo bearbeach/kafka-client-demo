@@ -1,4 +1,4 @@
-package com.system.kafka.clients.demo.handler;
+package com.system.kafka.clients.handle;
 
 import com.system.kafka.clients.ConsumerService;
 import org.slf4j.Logger;

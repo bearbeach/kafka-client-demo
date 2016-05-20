@@ -29,13 +29,13 @@
     </bean>
 
     <!-- 生产通道1 -->
-    <bean name="producerHandler" class="com.system.kafka.clients.demo.handler.ProducerHandler">
+    <bean name="producerHandler" class="com.system.kafka.clients.handle.ProducerHandler">
         <property name="productService" ref="productService"/>
         <property name="topicName" value="my-topic"/>
     </bean>
 
     <!-- 生产通道2 -->
-    <bean name="producerHandler2" class="com.system.kafka.clients.demo.handler.ProducerHandler">
+    <bean name="producerHandler2" class="com.system.kafka.clients.handle.ProducerHandler">
         <property name="productService" ref="productService"/>
         <property name="topicName" value="my-topic1"/>
     </bean>
@@ -61,7 +61,7 @@
     <!-- 通过注解的形式,提供的消费者实例 -->
     <context:component-scan base-package="com.system.kafka.clients.demo"/>
 
-    <bean name="consumerHandler" class="com.system.kafka.clients.demo.handler.ConsumerHandler" init-method="execute">
+    <bean name="consumerHandler" class="com.system.kafka.clients.handle.ConsumerHandler" init-method="execute">
         <property name="consumerService" ref="consumerServiceImpl"/>
         <property name="topicName" value="my-topic"/>
         <!-- 消息传输对象 -->
