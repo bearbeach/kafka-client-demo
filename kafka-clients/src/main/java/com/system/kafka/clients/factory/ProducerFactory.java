@@ -16,6 +16,7 @@ import java.util.Map;
  * <li>User: weiwei Date:16/5/11 <li>
  * </ul>
  */
+@Deprecated
 public class ProducerFactory {
 
     private final static Logger logger = LoggerFactory.getLogger(ProducerFactory.class);

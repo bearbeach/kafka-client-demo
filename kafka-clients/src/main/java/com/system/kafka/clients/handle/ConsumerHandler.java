@@ -13,7 +13,6 @@ import org.slf4j.LoggerFactory;
  */
 public class ConsumerHandler {
 
-
     private final static Logger logger = LoggerFactory.getLogger(ConsumerHandler.class);
 
     /**

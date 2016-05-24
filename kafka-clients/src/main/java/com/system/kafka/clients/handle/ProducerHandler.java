@@ -4,6 +4,8 @@ import com.system.kafka.clients.ProductService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.concurrent.ExecutionException;
+
 /**
  * <ul>
  * <li>生产者处理类</li>
@@ -11,6 +13,7 @@ import org.slf4j.LoggerFactory;
  * </ul>
  */
 public class ProducerHandler {
+
     private final static Logger logger = LoggerFactory.getLogger(ProducerHandler.class);
 
     /**
@@ -36,7 +39,7 @@ public class ProducerHandler {
      *
      * @param obj
      */
-    public void sendMessage(Object obj) {
+    public void sendMessage(Object obj) throws Exception {
         logger.debug("topic:[{}] send a message:{}", topicName, obj.toString());
         productService.sendMessage(topicName, obj);
     }

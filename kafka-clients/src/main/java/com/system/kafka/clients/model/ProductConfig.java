@@ -1,12 +1,24 @@
 package com.system.kafka.clients.model;
 
+import org.apache.commons.pool2.impl.GenericObjectPoolConfig;
+
 /**
  * <ul>
  * <li>生产者配置类</li>
+ * <li>added:新增线程池功能</li>
  * <li>User: weiwei Date:16/5/11 <li>
+ * <li>updated: weiwei Date:16/5/24 <li>
  * </ul>
  */
-public class ProductConfig {
+public class ProductConfig extends GenericObjectPoolConfig {
+
+    public ProductConfig() {
+        // defaults to make your life with connection pool easier :)
+        setMinIdle(10);
+        setMaxIdle(30);
+        setMaxTotal(100);
+        setTestOnBorrow(true);
+    }
 
     /**
      * 主机/端口列表,用于建立kafka集群的初始连接,动态发现集群中所有broker地址.
@@ -62,6 +74,7 @@ public class ProductConfig {
      * Value序列化格式类型
      */
     String valueSerializer = "com.system.kafka.clients.serializer.MessageJsonSerializer";
+
 
     public String getBootstrapServers() {
         return bootstrapServers;

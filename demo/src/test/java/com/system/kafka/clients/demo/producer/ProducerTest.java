@@ -37,9 +37,13 @@ public class ProducerTest extends BaseSpringTest {
      */
     @Test
     public void singleSendMessageTest() throws InterruptedException {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 1000; i++) {
             SayHello sayHello = new SayHello("name:" + i, "say " + i);
-            producerHandler.sendMessage(sayHello);
+            try {
+                producerHandler.sendMessage(sayHello);
+            } catch (Exception e) {
+                logger.error("send a message:{},fatal,Exception:", sayHello, e);
+            }
         }
 
         Thread.sleep(100000);

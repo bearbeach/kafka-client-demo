@@ -2,48 +2,48 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context
-		http://www.springframework.org/schema/context/spring-context.xsd
-		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
+		http://www.springframework.org/schema/context/spring-context.xsd">
 
     <!-- 初始化生产者 -->
     <bean name="productConfig" class="com.system.kafka.clients.model.ProductConfig">
         <property name="bootstrapServers" value="10.0.21.56:9092,10.0.21.57:9092"/>
-        <!--<property name="bootstrapServers" value="10.211.55.5:9092"/>-->
         <property name="acks" value="all"/>
         <property name="retries" value="0"/>
         <property name="batchSize" value="16384"/>
         <property name="bufferMemory" value="33554432"/>
-        <property name="lingerMs" value="1"/>
+        <!-- 可根据自己需要填写,也可用默认配置 -->
+        <!--<property name="minIdle" value="10"/>-->
+        <!--<property name="maxIdle" value="30"/>-->
+        <!--<property name="maxTotal" value="100"/>-->
+        <!--<property name="maxWaitMillis" value="30000"/>-->
     </bean>
 
-    <bean name="producerFactory" class="com.system.kafka.clients.factory.ProducerFactory">
+    <bean name="ProducerConnPool" class="com.system.kafka.clients.factory.ProducerConnPool">
         <constructor-arg ref="productConfig"/>
     </bean>
 
     <bean name="productService" class="com.system.kafka.clients.ProductService">
-        <property name="producerFactory" ref="producerFactory"/>
+        <property name="producerConnPool" ref="ProducerConnPool"/>
     </bean>
 
     <!-- 生产通道1 -->
     <bean name="producerHandler" class="com.system.kafka.clients.handle.ProducerHandler">
         <property name="productService" ref="productService"/>
-        <property name="topicName" value="my-topic"/>
+        <property name="topicName" value="pressure-01"/>
     </bean>
 
     <!-- 生产通道2 -->
     <bean name="producerHandler2" class="com.system.kafka.clients.handle.ProducerHandler">
         <property name="productService" ref="productService"/>
-        <property name="topicName" value="my-topic1"/>
+        <property name="topicName" value="my-topic"/>
     </bean>
 
     <!-- 初始化消费者 -->
     <bean name="consumerConfig" class="com.system.kafka.clients.model.ConsumerConfig">
         <property name="bootstrapServers" value="10.0.21.56:9092,10.0.21.57:9092"/>
-        <!--<property name="bootstrapServers" value="10.211.55.5:9092"/>-->
         <property name="groupId" value="test"/>
         <property name="enableAutoCommit" value="true"/>
         <property name="autoCommitIntervalMs" value="1000"/>
@@ -58,7 +58,7 @@
         <property name="consumerFactory" ref="consumerFactory"/>
     </bean>
 
-    <!-- 通过注解的形式,提供的消费者实例 -->
+    <!--通过注解的形式,提供的消费者实例-->
     <context:component-scan base-package="com.system.kafka.clients.demo"/>
 
     <bean name="consumerHandler" class="com.system.kafka.clients.handle.ConsumerHandler" init-method="execute">

@@ -30,7 +30,7 @@ public class MessageJsonSerializer implements Serializer {
         try {
             return JSON.toJSONString(data).getBytes(encoding);
         } catch (UnsupportedEncodingException e) {
-            logger.error("message serializer IOException：{}", data.toString());
+            logger.debug("message serializer IOException：{}", data.toString());
         }
         return null;
     }
