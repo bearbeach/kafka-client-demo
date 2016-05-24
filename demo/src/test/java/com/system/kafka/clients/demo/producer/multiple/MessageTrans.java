@@ -19,7 +19,7 @@ public class MessageTrans extends Thread {
     private Object message;
 
     public MessageTrans(ProducerHandler producerHandler, Object messageObj) {
-        logger.info("init a message:{}", message);
+        logger.debug("init a message:{}", messageObj);
         this.producerHandler = producerHandler;
         this.message = messageObj;
     }

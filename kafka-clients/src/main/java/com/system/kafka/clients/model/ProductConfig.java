@@ -17,7 +17,6 @@ public class ProductConfig extends GenericObjectPoolConfig {
         setMinIdle(10);
         setMaxIdle(30);
         setMaxTotal(100);
-        setTestOnBorrow(true);
     }
 
     /**

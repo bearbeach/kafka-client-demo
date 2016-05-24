@@ -30,7 +30,7 @@ public class ProducerConnFactory extends BasePooledObjectFactory<Producer> {
      */
     @Override
     public Producer create() throws Exception {
-        logger.debug("creating a Producer Connection!");
+        logger.info("creating a Producer Connection!");
         Producer producer = new KafkaProducer<>(new ProductBuild().getProperty(productConfig));
         return producer;
     }

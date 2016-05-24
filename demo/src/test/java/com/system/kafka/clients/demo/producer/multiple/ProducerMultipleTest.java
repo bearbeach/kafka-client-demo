@@ -44,10 +44,10 @@ public class ProducerMultipleTest extends BaseSpringTest {
 
         int numThread = 0;
 
-        ExecutorService executorService = Executors.newFixedThreadPool(100);
+        ExecutorService executorService = Executors.newFixedThreadPool(50);
 
-        for (int i = 0; i < 50000; i++) {
-            SayHello sayHello = new SayHello("name:" + i, "say " + i);
+        for (int i = 0; i < 100000; i++) {
+            SayHello sayHello = new SayHello("name:" + i, "我要说话,说到够400bety,400bety到底有多长,1byte是8个字节,一个中文占二个字节,那我得说二百多字,但是格式也占了一些,不知道够了没,现在才说到一般,我要把刚才的话全部复制过去, 我要说话,说到够400bety,400bety到底有多长,1byte是8个字节,一个中文占二个字节,那我得说二百多字,但是格式也" + i);
             executorService.execute(new MessageTrans(producerHandler, sayHello));
             numThread++;
         }
@@ -59,10 +59,10 @@ public class ProducerMultipleTest extends BaseSpringTest {
 
         Date end_time = new Date();
         logger.info("end time:{}", end_time);
-        long interval = (start_time.getTime() - end_time.getTime()) / 1000;
+        long interval = (end_time.getTime() - start_time.getTime()) / 1000;
         logger.info("两个时间相差" + interval + "秒");//会打印出相差3秒
 
         // 休眠一定时间,等待消费者消费发送的消息
-        Thread.sleep(100000);
+//        Thread.sleep(100000);
     }
 }
