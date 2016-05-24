@@ -32,13 +32,13 @@
     <!-- 生产通道1 -->
     <bean name="producerHandler" class="com.system.kafka.clients.handle.ProducerHandler">
         <property name="productService" ref="productService"/>
-        <property name="topicName" value="pressure-01"/>
+        <property name="topicName" value="my-topic"/>
     </bean>
 
     <!-- 生产通道2 -->
     <bean name="producerHandler2" class="com.system.kafka.clients.handle.ProducerHandler">
         <property name="productService" ref="productService"/>
-        <property name="topicName" value="my-topic"/>
+        <property name="topicName" value="my-topic1"/>
     </bean>
 
     <!-- 初始化消费者 -->
