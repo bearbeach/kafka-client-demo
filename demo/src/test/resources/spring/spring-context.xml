@@ -58,7 +58,7 @@
         <property name="consumerFactory" ref="consumerFactory"/>
     </bean>
 
-    <!--通过注解的形式,提供的消费者实例-->
+    <!-- 通过注解的形式,提供的消费者实例 -->
     <context:component-scan base-package="com.system.kafka.clients.demo"/>
 
     <bean name="consumerHandler" class="com.system.kafka.clients.handle.ConsumerHandler" init-method="execute">
