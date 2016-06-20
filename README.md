@@ -37,16 +37,8 @@ kafka版本:0.10.0.0
 
 ```
 
+
 ### 第四步
-
-修改`test/resources/spring/spring-context.xml`中的扫描路径。
-
-```
-<context:component-scan base-package="your are scan of path"/>
-
-```
-
-### 第五步
 替换`消息传输对象` ，在 `<bean name =consumerHandler`中的属性【<b>transObj</b>】替换为你自己的传输对象。
 
 ```
@@ -65,3 +57,12 @@ kafka版本:0.10.0.0
 ```
 
 注意： receiptObj必须继承`BizHandleInterface`.
+
+### 第五步
+
+修改`test/resources/spring/spring-context.xml`中的扫描路径。
+
+```
+<context:component-scan base-package="扫描第四步【receiptObj】消息处理对象的地址"/>
+
+```
