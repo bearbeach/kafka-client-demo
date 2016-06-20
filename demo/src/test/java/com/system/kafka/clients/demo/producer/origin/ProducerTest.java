@@ -5,6 +5,7 @@ import org.apache.kafka.clients.producer.Producer;
 import org.apache.kafka.clients.producer.ProducerRecord;
 
 import java.util.Properties;
+import java.util.concurrent.ExecutionException;
 
 /**
  * <ul>
@@ -28,7 +29,13 @@ public class ProducerTest {
 
         Producer<String, String> producer = new KafkaProducer<>(props);
         for (int i = 0; i < 100; i++)
-            producer.send(new ProducerRecord<String, String>("dog", Integer.toString(i), Integer.toString(i)));
+            try {
+                producer.send(new ProducerRecord<String, String>("test", Integer.toString(i), Integer.toString(i))).get();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            } catch (ExecutionException e) {
+                e.printStackTrace();
+            }
 
         producer.close();
     }
