@@ -56,7 +56,7 @@ kafka版本:0.10.0.0
 
 ```
 
-注意： receiptObj必须继承`BizHandleInterface`.
+注意： receiptObj必须实现`BizHandleInterface`接口.
 
 ### 第五步
 
