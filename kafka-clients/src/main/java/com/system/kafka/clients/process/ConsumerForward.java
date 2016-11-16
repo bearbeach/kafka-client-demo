@@ -5,10 +5,14 @@ import com.system.kafka.clients.utils.BizClassUtils;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
 import org.apache.kafka.clients.consumer.KafkaConsumer;
+import org.apache.kafka.clients.consumer.OffsetAndMetadata;
+import org.apache.kafka.common.TopicPartition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * <ul>
@@ -36,11 +40,28 @@ public class ConsumerForward {
         consumer.subscribe(Arrays.asList(topicName));
         while (true) {
             ConsumerRecords<String, String> records = consumer.poll(100);
-            for (ConsumerRecord<String, String> record : records) {
-                try {
-                    BizClassUtils.get(obj).doBiz(JSON.parseObject(record.value(), clas));
-                } catch (Exception e) {
-                    logger.error("a message errors:{}", e);
+
+            for (TopicPartition partition : records.partitions()) {
+                List<ConsumerRecord<String, String>> partitionRecords = records.records(partition);
+                for (ConsumerRecord<String, String> record : partitionRecords) {
+                    try {
+                        consumer.commitSync(Collections.singletonMap(partition, new OffsetAndMetadata(record.offset() + 1)));
+                    } catch (Exception e) {
+                        logger.warn("kafka is timeout since maybe business code processing to low:{}", e);
+                        break;
+                    } catch (Throwable e) {
+                        logger.warn("fatal Error:kafka is timeout since maybe business code processing to low:{}", e);
+                        break;
+                    }
+
+                    // 调用业务逻辑
+                    try {
+                        BizClassUtils.get(obj).doBiz(JSON.parseObject(record.value(), clas));
+                    } catch (Exception e) {
+                        logger.error("a message errors:{}", e);
+                    } catch (Throwable e) {
+                        logger.error("a message throwable:{}", e);
+                    }
                 }
             }
         }
