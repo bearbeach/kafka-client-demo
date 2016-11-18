@@ -27,7 +27,7 @@ public class ConsumerConfig {
     /**
      * 如果为true消费者的偏移量会在后台定期提交。
      */
-    private String enableAutoCommit;
+    private String enableAutoCommit = "false";
 
     /**
      * 消费者offset提交到zookeeper的频率（毫秒）。

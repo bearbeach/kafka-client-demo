@@ -17,7 +17,8 @@ public class ConsumerBuild {
         Properties props = new Properties();
         props.put("bootstrap.servers", cc.getBootstrapServers());
         props.put("group.id", cc.getGroupId());
-        props.put("enable.auto.commit", cc.getEnableAutoCommit());
+        // TODO: 2016/11/17  因为程序消费改为了手动提交,所有这个必须是false
+        props.put("enable.auto.commit","false");
         props.put("auto.commit.interval.ms", cc.getAutoCommitIntervalMs());
         props.put("session.timeout.ms", cc.getSessionTimeoutMs());
         props.put("key.deserializer", cc.getKeyDeserializer());
